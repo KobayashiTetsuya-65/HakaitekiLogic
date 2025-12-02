@@ -1,5 +1,6 @@
 using UnityEngine;
 using UnityEngine.InputSystem;
+using static UnityEngine.UI.Image;
 
 public class Player : MonoBehaviour
 {
@@ -13,7 +14,8 @@ public class Player : MonoBehaviour
     PlayerInput _playerInput;
     InputAction _moveAction,_jumpAction;
     Rigidbody _rb;
-    Vector3 _moveInput,_move,_targetVel;
+    Quaternion _targetRot;
+    Vector3 _moveInput,_move,_targetVel,_origin;
     private void Awake()
     {
         _rb = GetComponent<Rigidbody>();
@@ -52,15 +54,21 @@ public class Player : MonoBehaviour
         _move.y = 0f;
 
         _targetVel = _move.normalized * _speed ;
-        _rb.linearVelocity = new Vector3(_targetVel.x,_rb.angularVelocity.y,_targetVel.z);
+        _rb.linearVelocity = new Vector3(_targetVel.x,_rb.linearVelocity.y,_targetVel.z);
+        if (_move != Vector3.zero)
+        {
+            _targetRot = Quaternion.LookRotation(_move);
+            _rb.MoveRotation(Quaternion.Slerp(_rb.rotation, _targetRot, 0.15f));
+        }
     }
     /// <summary>
     /// ê⁄ínîªíË
     /// </summary>
-    public bool GroundChecker()
+    private bool GroundChecker()
     {
+        _origin = transform.position + Vector3.up * (_groundCheckRadius + 0.05f);
         return Physics.SphereCast(
-            transform.position + Vector3.up * 0.1f,
+            _origin,
             _groundCheckRadius,
             Vector3.down,
             out _,

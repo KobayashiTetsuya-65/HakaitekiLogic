@@ -32,6 +32,5 @@ public class GameManager : MonoBehaviour
     private void FixedUpdate()
     {
         _player.PlayerMove();
-        _player.GroundChecker();
     }
 }
