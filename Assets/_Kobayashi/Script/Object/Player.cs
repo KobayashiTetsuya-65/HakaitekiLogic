@@ -10,25 +10,27 @@ public class Player : MonoBehaviour
     [SerializeField] Transform _cameraTr;
     [SerializeField] LayerMask _groundLayer;
 
+    PlayerInput _playerInput;
     InputAction _moveAction,_jumpAction;
     Rigidbody _rb;
     Vector3 _moveInput,_move,_targetVel;
     private void Awake()
     {
         _rb = GetComponent<Rigidbody>();
-        _moveAction = InputSystem.actions.FindAction("Move");
-        _jumpAction = InputSystem.actions.FindAction("Jump");
+        _playerInput = GetComponent<PlayerInput>();
+        _moveAction = _playerInput.actions["Move"];
+        _jumpAction = _playerInput.actions["Jump"];
     }
     private void OnEnable()
     {
-        _moveAction.Enable();
-        _jumpAction.Enable();
+        _moveAction?.Enable();
+        _jumpAction?.Enable();
     }
 
     private void OnDisable()
     {
-        _moveAction.Disable();
-        _jumpAction.Disable();
+        _moveAction?.Disable();
+        _jumpAction?.Disable();
     }
     /// <summary>
     /// ÉvÉåÉCÉÑÅ[ì¸óÕ

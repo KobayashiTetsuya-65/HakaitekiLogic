@@ -4,6 +4,7 @@ public class GameManager : MonoBehaviour
 {
     public static GameManager Instance { get; private set; }
     Player _player;
+    TPSCamera _camera;
     void Start()
     {
         Application.targetFrameRate = 60;
@@ -15,12 +16,18 @@ public class GameManager : MonoBehaviour
         DontDestroyOnLoad(gameObject);
         Instance = this;
         _player = FindAnyObjectByType<Player>();
+        _camera = FindAnyObjectByType<TPSCamera>();
     }
 
     // Update is called once per frame
     void Update()
     {
         _player.PlayerInput();
+    }
+    private void LateUpdate()
+    {
+        _camera.CameraInput();
+        _camera.CameraFollow();
     }
     private void FixedUpdate()
     {
