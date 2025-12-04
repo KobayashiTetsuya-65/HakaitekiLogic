@@ -17,6 +17,7 @@ public class GameManager : MonoBehaviour
         Instance = this;
         _player = FindAnyObjectByType<Player>();
         _camera = FindAnyObjectByType<TPSCamera>();
+        AudioManager.Instance.PlayBGM(SoundDataUtility.KeyConfig.BGM.InGame);
     }
 
     // Update is called once per frame

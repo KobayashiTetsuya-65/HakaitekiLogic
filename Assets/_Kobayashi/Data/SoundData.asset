@@ -12,4 +12,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f4fa52a6b26760847aab3d54a324c6c0, type: 3}
   m_Name: SoundData
   m_EditorClassIdentifier: Assembly-CSharp::SoundDataBaseSo
-  _soundMap: []
+  _soundMap:
+  - _key: InGame
+    _type: 0
+    _isLoop: 1
+    _playOnAwake: 1
+    _volume: 1
+    _clip: {fileID: 8300000, guid: 09e3c81724c3d874d829493933775990, type: 3}

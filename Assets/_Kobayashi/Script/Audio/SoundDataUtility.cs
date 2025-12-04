@@ -11,6 +11,7 @@ public static class SoundDataUtility
         public static class BGM
         {
             //“ü‚ê‚½‚¢BGM‚Í‚±‚±‚É‚©‚­
+            public static readonly string InGame = "InGame";
         }  
     }
     public enum SoundType
