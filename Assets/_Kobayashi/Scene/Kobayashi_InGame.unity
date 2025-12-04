@@ -387,6 +387,7 @@ MonoBehaviour:
   _fallCheckVelocity: -1
   _delayJump: 0.2
   _landingCheckDistance: 1.5
+  _throwDuration: 2
   _cameraTr: {fileID: 1481119110}
   _groundLayer:
     serializedVersion: 2
@@ -437,7 +438,7 @@ CapsuleCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Radius: 0.5
+  m_Radius: 0.4
   m_Height: 1.5
   m_Direction: 1
   m_Center: {x: 0, y: 0.75, z: 0}
@@ -978,6 +979,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ac57f73653ecb774c97cd1efff9aaf8d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::GameManager
+  Move: 1
 --- !u!82 &2060287101
 AudioSource:
   m_ObjectHideFlags: 0

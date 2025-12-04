@@ -14,6 +14,7 @@ public class Player : MonoBehaviour
     [SerializeField] float _fallCheckVelocity = -2f;
     [SerializeField] float _delayJump = 0.2f;
     [SerializeField] float _landingCheckDistance = 0.6f;
+    [SerializeField] float _throwDuration = 2f;
 
     [Header("コンポーネント設定")]
     [SerializeField] Transform _cameraTr;
@@ -21,12 +22,12 @@ public class Player : MonoBehaviour
 
     Animator _anim;
     PlayerInput _playerInput;
-    InputAction _moveAction,_jumpAction,_sprintAction;
+    InputAction _moveAction,_jumpAction,_sprintAction,_throwAction;
     Transform _tr;
     Rigidbody _rb;
     Quaternion _targetRot;
     Vector3 _moveInput,_move,_targetVel,_origin;
-    bool _isSprinting = false, _isFalling = false, _isJumping = false,_isGround = false,_isLanding = false;
+    bool _isSprinting = false, _isFalling = false, _isJumping = false,_isGround = false,_isLanding = false,_isThrow = false;
     float _sprintFactor = 1f, _targetFactor, _horizontalSpeed;
     private void Awake()
     {
@@ -37,6 +38,7 @@ public class Player : MonoBehaviour
         _moveAction = _playerInput.actions["Move"];
         _jumpAction = _playerInput.actions["Jump"];
         _sprintAction = _playerInput.actions["Sprint"];
+        _throwAction = _playerInput.actions["Interact"];
         _targetRot = _tr.rotation;
     }
     private void OnEnable()
@@ -44,6 +46,7 @@ public class Player : MonoBehaviour
         _moveAction?.Enable();
         _jumpAction?.Enable();
         _sprintAction?.Enable();
+        _throwAction?.Enable();
     }
 
     private void OnDisable()
@@ -51,6 +54,7 @@ public class Player : MonoBehaviour
         _moveAction?.Disable();
         _jumpAction?.Disable();
         _sprintAction?.Disable();
+        _throwAction?.Disable();
     }
     /// <summary>
     /// プレイヤー入力
@@ -59,10 +63,16 @@ public class Player : MonoBehaviour
     {
         _moveInput = _moveAction.ReadValue<Vector2>();
         _isSprinting = _sprintAction.IsPressed();
-        if (_jumpAction.WasPressedThisFrame() && _isGround && !_isJumping)
+        if (_jumpAction.WasPressedThisFrame() && _isGround && !_isJumping && !_isThrow)
         {
             _isJumping = true;
             StartCoroutine(Jump());
+        }
+        if(_throwAction.WasPressedThisFrame() && !_isJumping && !_isThrow && _isGround)
+        {
+            _isThrow = true;
+            GameManager.Instance.Move = false;
+            StartCoroutine(ThrowBomb());
         }
     }
     /// <summary>
@@ -127,5 +137,16 @@ public class Player : MonoBehaviour
         yield return new WaitUntil(() => _isGround);
         yield return new WaitForSeconds(0.05f);
         _isJumping = false;
+    }
+    /// <summary>
+    /// 爆弾を投げる
+    /// </summary>
+    /// <returns></returns>
+    private IEnumerator ThrowBomb()
+    {
+        _anim.SetTrigger("Throw");
+        yield return new WaitForSeconds(_throwDuration);
+        _isThrow = false;
+        GameManager.Instance.Move = true;
     }
 }
