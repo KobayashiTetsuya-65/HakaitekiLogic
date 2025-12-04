@@ -92,8 +92,9 @@ public class Player : MonoBehaviour
         if (_moveInput.sqrMagnitude > 0.01f)
         {
             _targetRot = Quaternion.LookRotation(_move);
+            _rb.MoveRotation(Quaternion.Slerp(_rb.rotation, _targetRot, 0.15f));
         }
-        _rb.MoveRotation(Quaternion.Slerp(_rb.rotation, _targetRot, 0.15f));
+
         UpdateAnimator();
     }
     /// <summary>
