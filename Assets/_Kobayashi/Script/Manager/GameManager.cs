@@ -5,6 +5,7 @@ public class GameManager : MonoBehaviour
     public static GameManager Instance { get; private set; }
     Player _player;
     TPSCamera _camera;
+    public bool Move = true;
     void Start()
     {
         Application.targetFrameRate = 60;
@@ -17,6 +18,7 @@ public class GameManager : MonoBehaviour
         Instance = this;
         _player = FindAnyObjectByType<Player>();
         _camera = FindAnyObjectByType<TPSCamera>();
+        AudioManager.Instance.PlayBGM(SoundDataUtility.KeyConfig.BGM.InGame);
     }
 
     // Update is called once per frame
@@ -31,6 +33,7 @@ public class GameManager : MonoBehaviour
     }
     private void FixedUpdate()
     {
+        if(Move)
         _player.PlayerMove();
     }
 }
