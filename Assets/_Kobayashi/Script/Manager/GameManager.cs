@@ -28,7 +28,6 @@ public class GameManager : MonoBehaviour
     }
     private void LateUpdate()
     {
-        _camera.CameraInput();
         _camera.CameraFollow();
     }
     private void FixedUpdate()

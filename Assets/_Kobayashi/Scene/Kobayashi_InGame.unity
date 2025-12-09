@@ -793,7 +793,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Player
   _speed: 3
-  _jumpPower: 8
+  _jumpPower: 5
   _sprintMultiplier: 1.8
   _speedLerpRate: 8
   _groundCheckRadius: 0.25
@@ -1007,11 +1007,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::TPSCamera
   _target: {fileID: 923865719}
-  _distance: 4
-  _height: 1.5
-  _mouseSensitivity: 0.8
-  _verticalLimit: {x: -40, y: 65}
-  _playerInput: {fileID: 923865720}
+  _distance: 6
+  _height: 4
+  _rotateX: 50
 --- !u!1 &1639949597
 GameObject:
   m_ObjectHideFlags: 0
