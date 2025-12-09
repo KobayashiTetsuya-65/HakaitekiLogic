@@ -13,6 +13,7 @@ public class Scenechange : MonoBehaviour
     /// </summary>
     public void ChangeScene()
     {
+        Debug.Log("ƒV[ƒ“ˆÚ“®");
        SceneManager.LoadScene(sceneName);
     }
 
